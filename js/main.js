@@ -1,4 +1,5 @@
 var score = 0;
+var numCorrect = 0;
 var index = 0;
 var res;
 var questionsAnswers = [
@@ -8,6 +9,7 @@ var questionsAnswers = [
   [['What is the capitol of Nebraska?'], ['Lincoln']],
   [['What is the capitol of Texas?'], ['Austin']]
 ]
+var rewardMessage = ['You suck!', 'Go back to school!', 'Nice try!', 'Not bad!', 'You are amazing!!!', 'Your knowledge of geography is astounding!!!'];
 
 for (var i = 0; i < questionsAnswers.length; i++) {
 
@@ -15,6 +17,9 @@ for (var i = 0; i < questionsAnswers.length; i++) {
   checkResponse();
   updatePage();
 
+  if ( i === 4 ) {
+    giveReward()
+  }
 }
 
 function askQuestion() {
@@ -40,7 +45,9 @@ function checkResponse() {
 function increaseScore() {
 
   score += 1;
+  numCorrect +=1;
   console.log(score);
+  console.log(numCorrect);
   printCongrats()
 
 }
@@ -54,12 +61,12 @@ function decreaseScore() {
 
 function printCongrats() {
 
-  alert('Correct!')
+  alert('Correct! Your score has increased by 1! Your score is now ' + score + '!')
 }
 
 function printSorry() {
 
-  alert('Bummer!');
+  alert('Bummer! We have subtracted a point from your score. Your score is now ' + score + ' :/');
 
 }
 
@@ -74,6 +81,14 @@ function updatePage() {
 
 function clear() {
 
+  $('div').remove();
   $('p').remove();
+
+}
+
+function giveReward() {
+
+
+  $('div').append('<div><h2>' + rewardMessage[numCorrect] + '</h2></div>');
 
 }
